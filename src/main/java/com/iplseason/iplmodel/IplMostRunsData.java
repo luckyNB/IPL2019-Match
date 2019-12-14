@@ -3,7 +3,7 @@ package com.iplseason.iplmodel;
 import com.opencsv.bean.CsvBindByName;
 
 public class IplMostRunsData {
-    @CsvBindByName(column = "POS")
+    @CsvBindByName(column = "POS",required = true)
     public int position;
     @CsvBindByName(column = "PLAYER")
     public String playerName;
