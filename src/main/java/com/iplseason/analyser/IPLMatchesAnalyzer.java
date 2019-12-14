@@ -54,6 +54,18 @@ public class IPLMatchesAnalyzer {
                 .sorted(this.comparatorMap.get(fieldType).reversed())
                 .collect(Collectors.toList());
         return sortedPlayer;
-
     }
+    public List<IplMostRunsData> getSortedList(FieldType fieldType,FieldType fieldType2) {
+        Comparator<IplMostRunsData> comparator = Comparator.comparing(IplMostRunsData::getSixes,Comparator.reverseOrder()).thenComparing(IplMostRunsData::getFours,Comparator.reverseOrder());
+        Collections.sort(iplRunsList,comparator);
+        return iplRunsList;
+    }
+
+
 }
+//    //Compare by first name and then last name
+//    Comparator<Employee> compareByName = Comparator
+//            .comparing(Employee::getFirstName)
+//            .thenComparing(Employee::getLastName);
+//
+//		Collections.sort(employees, compareByName);

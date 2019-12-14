@@ -40,6 +40,14 @@ public class IplMostRunsData {
         return average;
     }
 
+    public int getFours() {
+        return fours;
+    }
+
+    public int getSixes() {
+        return sixes;
+    }
+
     public IplMostRunsData(int position, String playerName, int matchesPlayed, int innings, int runs, double average, int fours, int sixes) {
         this.position = position;
         this.playerName = playerName;
