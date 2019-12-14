@@ -3,7 +3,7 @@ package com.iplseason.iplmodel;
 import com.opencsv.bean.CsvBindByName;
 
 public class IplMostRunsData {
-    @CsvBindByName(column = "POS",required = true)
+    @CsvBindByName(column = "POS")
     public int position;
     @CsvBindByName(column = "PLAYER")
     public String playerName;
@@ -32,6 +32,13 @@ public class IplMostRunsData {
     @CsvBindByName(column = "50s")
     public int fifties;
 
+    public int getPosition() {
+        return position;
+    }
+
+    public double getAverage() {
+        return average;
+    }
 
     public IplMostRunsData(int position, String playerName, int matchesPlayed, int innings, int runs, double average, int fours, int sixes) {
         this.position = position;
