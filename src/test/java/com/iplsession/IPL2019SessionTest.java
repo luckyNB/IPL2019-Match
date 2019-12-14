@@ -1,6 +1,7 @@
 package com.iplsession;
 
 import com.iplseason.IPLMatchAnalyserException;
+import com.iplseason.analyser.FieldType;
 import com.iplseason.analyser.IPLMatchesAnalyzer;
 import com.iplseason.iplmodel.IplMostRunsData;
 import org.junit.Assert;
@@ -62,12 +63,48 @@ public class IPL2019SessionTest {
     }
 
     @Test
-    public void givenIPL2019FactSheetMostRuns_WhenSortedByAverage_Should_ReturnSortedList() {
+    public void givenIPL2019FactSheetMostRuns_WhenSortedByAverage_Should_ReturnMS_DhoniAsFirstPlayerInList() {
         IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
         try {
             iplMatchesAnalyzer.loadIplMatchesData(IPL_MATCH_RUNS_DATA);
-            List<IplMostRunsData> list = iplMatchesAnalyzer.getSortedList();
+            List<IplMostRunsData> list = iplMatchesAnalyzer.getSortedList(FieldType.AVERAGE);
             Assert.assertEquals("MS Dhoni", list.get(0).playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019FactSheetMostRuns_WhenSortedByAverage_Should_ReturnTimSoutheeAsLarstPlayerInList() {
+        IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
+        try {
+            iplMatchesAnalyzer.loadIplMatchesData(IPL_MATCH_RUNS_DATA);
+            List<IplMostRunsData> list = iplMatchesAnalyzer.getSortedList(FieldType.AVERAGE);
+            Assert.assertEquals("Tim Southee", list.get(list.size()-1).playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019FactSheetMostRuns_WhenSortedByStrikeRate_Should_ReturnIshantSharmaAsLarstPlayerInList() {
+        IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
+        try {
+            iplMatchesAnalyzer.loadIplMatchesData(IPL_MATCH_RUNS_DATA);
+            List<IplMostRunsData> list = iplMatchesAnalyzer.getSortedList(FieldType.STRIKERATE);
+            Assert.assertEquals("Ishant Sharma", list.get(0).playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019FactSheetMostRuns_WhenSortedByStrikeRate_Should_ReturnPlayerInList() {
+        IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
+        try {
+            iplMatchesAnalyzer.loadIplMatchesData(IPL_MATCH_RUNS_DATA);
+            List<IplMostRunsData> list = iplMatchesAnalyzer.getSortedList(FieldType.STRIKERATE);
+            Assert.assertEquals("Bhuvneshwar Kumar", list.get(list.size()-1).playerName.trim());
         } catch (IPLMatchAnalyserException e) {
             e.printStackTrace();
         }
