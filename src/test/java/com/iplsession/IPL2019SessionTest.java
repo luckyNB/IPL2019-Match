@@ -44,7 +44,7 @@ public class IPL2019SessionTest {
         int result = 0;
         try {
             result = iplMatchesAnalyzer.loadIplMatchesData(EmptyIPL_MATCH_DATA);
-            Assert.assertEquals(101, result);
+            Assert.assertEquals(0, result);
         } catch (IPLMatchAnalyserException e) {
             Assert.assertEquals(IPLMatchAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER, e.type);
         }
@@ -55,7 +55,7 @@ public class IPL2019SessionTest {
         IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
         int result = 0;
         try {
-            result = iplMatchesAnalyzer.loadIplMatchesData(EmptyIPL_MATCH_DATA);
+            result = iplMatchesAnalyzer.loadIplMatchesData(WRONG_IPL_MATCH_DATA);
             Assert.assertEquals(101, result);
         } catch (IPLMatchAnalyserException e) {
             Assert.assertEquals(IPLMatchAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER, e.type);
@@ -109,4 +109,28 @@ public class IPL2019SessionTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenIPL2019FactSheetMostRuns_WhenSortedByMost6sAns4s_ThenShould_ReturnTim_Southee_AsLarstPlayerInList(){
+        IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
+        try {
+            iplMatchesAnalyzer.loadIplMatchesData(IPL_MATCH_RUNS_DATA);
+            List<IplMostRunsData> list = iplMatchesAnalyzer.getSortedList(FieldType.STRIKERATE,FieldType.AVERAGE);
+            Assert.assertEquals("Tim Southee", list.get(list.size()-1).playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void givenIPL2019FactSheetMostRuns_WhenSortedByMost6sAns4s_ThenShould_ReturnAndre_Russell_AsFirstPlayerInList(){
+        IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
+        try {
+            iplMatchesAnalyzer.loadIplMatchesData(IPL_MATCH_RUNS_DATA);
+            List<IplMostRunsData> list = iplMatchesAnalyzer.getSortedList(FieldType.STRIKERATE,FieldType.AVERAGE);
+            Assert.assertEquals("Andre Russell", list.get(0).playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
