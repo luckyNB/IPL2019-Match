@@ -2,8 +2,11 @@ package com.iplsession;
 
 import com.iplseason.IPLMatchAnalyserException;
 import com.iplseason.analyser.IPLMatchesAnalyzer;
+import com.iplseason.iplmodel.IplMostRunsData;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.List;
 
 public class IPL2019SessionTest {
 
@@ -55,6 +58,18 @@ public class IPL2019SessionTest {
             Assert.assertEquals(101, result);
         } catch (IPLMatchAnalyserException e) {
             Assert.assertEquals(IPLMatchAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER, e.type);
+        }
+    }
+
+    @Test
+    public void givenIPL2019FactSheetMostRuns_WhenSortedByAverage_Should_ReturnSortedList() {
+        IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
+        try {
+            iplMatchesAnalyzer.loadIplMatchesData(IPL_MATCH_RUNS_DATA);
+            List<IplMostRunsData> list = iplMatchesAnalyzer.getSortedList();
+            Assert.assertEquals("MS Dhoni", list.get(0).playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
         }
     }
 }
