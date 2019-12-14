@@ -33,4 +33,16 @@ public class IPL2019SessionTest {
         Assert.assertEquals(IPLMatchAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER,e.type);
         }
     }
+
+    @Test
+    public void givenIPL2019FactSheetsMostRuns_WhenEmptyFile_ThenShouldThrow_IPLAnalyserException() {
+        IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
+        int result = 0;
+        try {
+            result = iplMatchesAnalyzer.loadIplMatchesData(EmptyIPL_MATCH_DATA);
+            Assert.assertEquals(101, result);
+        } catch (IPLMatchAnalyserException e) {
+            Assert.assertEquals(IPLMatchAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER,e.type);
+        }
+    }
 }
