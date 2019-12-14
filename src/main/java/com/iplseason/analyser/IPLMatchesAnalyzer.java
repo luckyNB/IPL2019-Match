@@ -17,9 +17,15 @@ import java.util.stream.StreamSupport;
 public class IPLMatchesAnalyzer {
 
     List<IplMostRunsData> iplRunsList = null;
+    Map<FieldType, Comparator> comparatorMap = null;
+    Comparator<IplMostRunsData> iplMostRunsDataComparator = null;
 
     public IPLMatchesAnalyzer() {
         iplRunsList = new ArrayList<>();
+        comparatorMap = new HashMap<>();
+        comparatorMap.put(FieldType.AVERAGE, (iplMostRunsDataComparator = Comparator.comparing(iplMostRunsData -> iplMostRunsData.average)));
+        comparatorMap.put(FieldType.STRIKERATE, iplMostRunsDataComparator = Comparator.comparing(iplMostRunsData -> iplMostRunsData.strikeRate));
+
     }
 
     public int loadIplMatchesData(String ipl_match_runs_data) throws IPLMatchAnalyserException {
@@ -42,10 +48,10 @@ public class IPLMatchesAnalyzer {
         }
     }
 
-    public List<IplMostRunsData> getSortedList() {
+    public List<IplMostRunsData> getSortedList(FieldType fieldType) {
         Comparator<IplMostRunsData> comparator = Comparator.comparing(data -> data.average);
-        List<IplMostRunsData> sortedPlayer = iplRunsList.stream()
-                .sorted(Comparator.comparing(IplMostRunsData::getAverage).reversed())
+        List<IplMostRunsData> sortedPlayer = (List<IplMostRunsData>) iplRunsList.stream()
+                .sorted(this.comparatorMap.get(fieldType).reversed())
                 .collect(Collectors.toList());
         return sortedPlayer;
 
