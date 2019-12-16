@@ -1,5 +1,5 @@
 package com.iplseason.analyser;
 
 public enum FieldType {
-    AVERAGE,STRIKERATE
+    AVERAGE,STRIKERATE,SIXES_AND_FOURS,FOURS;
 }

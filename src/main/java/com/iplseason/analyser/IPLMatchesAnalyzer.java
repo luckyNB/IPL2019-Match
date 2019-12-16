@@ -4,6 +4,7 @@ import com.bridgelabz.CSVBuilderException;
 import com.bridgelabz.CSVBuilderFactory;
 import com.bridgelabz.ICSVBuilder;
 import com.iplseason.IPLMatchAnalyserException;
+import com.iplseason.iplcomparators.GroupBySorter;
 import com.iplseason.iplmodel.IplMostRunsData;
 
 import java.io.IOException;
@@ -11,7 +12,6 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class IPLMatchesAnalyzer {
@@ -48,24 +48,15 @@ public class IPLMatchesAnalyzer {
         }
     }
 
-    public List<IplMostRunsData> getSortedList(FieldType fieldType) {
-        Comparator<IplMostRunsData> comparator = Comparator.comparing(data -> data.average);
-        List<IplMostRunsData> sortedPlayer = (List<IplMostRunsData>) iplRunsList.stream()
-                .sorted(this.comparatorMap.get(fieldType).reversed())
-                .collect(Collectors.toList());
-        return sortedPlayer;
-    }
-    public List<IplMostRunsData> getSortedList(FieldType fieldType,FieldType fieldType2) {
-        Comparator<IplMostRunsData> comparator = Comparator.comparing(IplMostRunsData::getSixes,Comparator.reverseOrder()).thenComparing(IplMostRunsData::getFours,Comparator.reverseOrder());
-        Collections.sort(iplRunsList,comparator);
-        return iplRunsList;
-    }
+    public List<IplMostRunsData> getSortedList(Comparator<IplMostRunsData>... comparatorsList) {
+        if (comparatorsList.length == 1) {
+            Collections.sort(iplRunsList, new GroupBySorter(comparatorsList[0]));
+            return iplRunsList;
+        } else if (comparatorsList.length == 2) {
+            Collections.sort(iplRunsList, new GroupBySorter(comparatorsList[0], comparatorsList[1]));
+            return iplRunsList;
+        }
 
-
+        return null;
+    }
 }
-//    //Compare by first name and then last name
-//    Comparator<Employee> compareByName = Comparator
-//            .comparing(Employee::getFirstName)
-//            .thenComparing(Employee::getLastName);
-//
-//		Collections.sort(employees, compareByName);
