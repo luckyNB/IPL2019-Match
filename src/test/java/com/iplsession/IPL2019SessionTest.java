@@ -14,9 +14,10 @@ import java.util.List;
 public class IPL2019SessionTest {
 
     IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
-    private String IPL_MATCH_RUNS_DATA = "/home/admin1/IPL2019-Match-Analyser/src/test/resources/IPL2019FactsheetMostRuns.csv";
-    private String WRONG_IPL_MATCH_DATA = "/home/admin1/IPL2019-Match-Analyser/src/test/resources/WrongIPL2019FactsheetMostRuns.csv";
-    private String EmptyIPL_MATCH_DATA = "/home/admin1/IPL2019-Match-Analyser/src/test/resources/EmptyFileIPL2019FactsheetMostRuns.csv";
+    private String IPL_WICKETS_DATA = "/home/admin1/IPL2019-Match-Analyser/src/test/resources/IPL2019FactsheetMostWkts.csv";
+    private String IPL_MATCH_RUNS_DATA = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
+    private String WRONG_IPL_MATCH_DATA = "./src/test/resources/WrongIPL2019FactsheetMostRuns.csv";
+    private String EmptyIPL_MATCH_DATA = "./src/test/resources/EmptyFileIPL2019FactsheetMostRuns.csv";
 
     @Test
     public void givenIPL2019FactSheetsMostRuns_WhenBindedCorrectly_ThenShould_ReturnTotalRecords() {
@@ -66,7 +67,7 @@ public class IPL2019SessionTest {
     }
 
     @Test
-    public void givenIPL2019FactSheetMostRuns_WhenSortedByAverage_Should_ReturnMS_DhoniAsFirstPlayerInList() {
+    public void givenIPL2019FactSheetMostRuns_WhenSortedByAverage_Should_ReturnBestPlayerInList() {
         IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
         Comparator comparatorObject = ComparatorFactory.createComparatorObject(FieldType.AVERAGE);
         try {
@@ -79,7 +80,7 @@ public class IPL2019SessionTest {
     }
 
     @Test
-    public void givenIPL2019FactSheetMostRuns_WhenSortedByAverage_Should_ReturnTimSoutheeAsLarstPlayerInList() {
+    public void givenIPL2019FactSheetMostRuns_WhenSortedByAverage_Should_ReturnWorstPlayerInList() {
         IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
         Comparator comparatorObject = ComparatorFactory.createComparatorObject(FieldType.AVERAGE);
         try {
@@ -92,7 +93,7 @@ public class IPL2019SessionTest {
     }
 
     @Test
-    public void givenIPL2019FactSheetMostRuns_WhenSortedByStrikeRate_Should_ReturnIshantSharmaAsLarstPlayerInList() {
+    public void givenIPL2019FactSheetMostRuns_WhenSortedByStrikeRate_Should_ReturnBestPlayerInList() {
         IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
         Comparator comparatorObject = ComparatorFactory.createComparatorObject(FieldType.STRIKERATE);
         try {
@@ -105,7 +106,7 @@ public class IPL2019SessionTest {
     }
 
     @Test
-    public void givenIPL2019FactSheetMostRuns_WhenSortedByStrikeRate_Should_ReturnPlayerInList() {
+    public void givenIPL2019FactSheetMostRuns_WhenSortedByStrikeRate_Should_ReturnWorstPlayerInList() {
         IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
         Comparator comparatorObject = ComparatorFactory.createComparatorObject(FieldType.STRIKERATE);
         try {
@@ -165,6 +166,70 @@ public class IPL2019SessionTest {
             iplMatchesAnalyzer.loadIplMatchesData(IPL_MATCH_RUNS_DATA);
             List<IplMostRunsData> sortedList = iplMatchesAnalyzer.getSortedList(sixesAndFoursComparator, strikeRateComparator);
             Assert.assertEquals("Shakib Al Hasan", sortedList.get(sortedList.size() - 1).playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019FactSheetMostRuns_WhenSortedByAverageWithStrikeRates_ThenShould_ReturnBestPlayersList() {
+        try {
+            Comparator strikeRateComparator = ComparatorFactory.createComparatorObject(FieldType.STRIKERATE);
+            Comparator averageRateComparator = ComparatorFactory.createComparatorObject(FieldType.AVERAGE);
+            iplMatchesAnalyzer.loadIplMatchesData(IPL_MATCH_RUNS_DATA);
+            List<IplMostRunsData> sortedList = iplMatchesAnalyzer.getSortedList(averageRateComparator, strikeRateComparator);
+            Assert.assertEquals("MS Dhoni", sortedList.get(0).playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019FactSheetMostRuns_WhenSortedByAverageWithStrikeRates_ThenShould_ReturnWorstPlayersList() {
+        Comparator strikeRateComparator = ComparatorFactory.createComparatorObject(FieldType.STRIKERATE);
+        Comparator averageRateComparator = ComparatorFactory.createComparatorObject(FieldType.AVERAGE);
+
+        try {
+            iplMatchesAnalyzer.loadIplMatchesData(IPL_MATCH_RUNS_DATA);
+            List<IplMostRunsData> sortedList = iplMatchesAnalyzer.getSortedList(averageRateComparator, strikeRateComparator);
+            Assert.assertEquals("Tim Southee", sortedList.get(sortedList.size() - 1).playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019FactSheetMostRuns_WhenSortedByMaxRunsWithBestAverage_ThenShould_ReturnBestPlayersList() {
+        Comparator runsComparator = ComparatorFactory.createComparatorObject(FieldType.RUNS);
+        Comparator averageComparator = ComparatorFactory.createComparatorObject(FieldType.AVERAGE);
+        try {
+            iplMatchesAnalyzer.loadIplMatchesData(IPL_MATCH_RUNS_DATA);
+            List<IplMostRunsData> sortedList = iplMatchesAnalyzer.getSortedList(runsComparator, averageComparator);
+            Assert.assertEquals("David Warner", sortedList.get(0).playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019FactSheetMostRuns_WhenSortedByMaxRunsWithBestAverage_ThenShould_ReturnWorstPlayersList() {
+        Comparator runsComparator = ComparatorFactory.createComparatorObject(FieldType.RUNS);
+        Comparator averageComparator = ComparatorFactory.createComparatorObject(FieldType.AVERAGE);
+        try {
+            iplMatchesAnalyzer.loadIplMatchesData(IPL_MATCH_RUNS_DATA);
+            List<IplMostRunsData> sortedList = iplMatchesAnalyzer.getSortedList(runsComparator.reversed(), averageComparator.reversed());
+            Assert.assertEquals("Tim Southee", sortedList.get(0).playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void givenIPL2019FactsSheetMostWickets_ThenShouldReturn_NumberOfRecord() {
+        try {
+            int size = iplMatchesAnalyzer.loadIplMatchesData2(IPL_WICKETS_DATA);
+            Assert.assertEquals(101, size);
         } catch (IPLMatchAnalyserException e) {
             e.printStackTrace();
         }
