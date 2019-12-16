@@ -13,6 +13,8 @@ public class ComparatorFactory {
             return (T) new StrikeRateComparator();
         } else if (fieldType.equals(FieldType.SIXES_AND_FOURS)) {
             return (T) new FoursAndSixesComparator();
+        } else if (fieldType.equals(FieldType.RUNS)) {
+            return (T) new RunsComparator();
         }
         return null;
     }

@@ -6,6 +6,7 @@ import com.bridgelabz.ICSVBuilder;
 import com.iplseason.IPLMatchAnalyserException;
 import com.iplseason.iplcomparators.GroupBySorter;
 import com.iplseason.iplmodel.IplMostRunsData;
+import com.iplseason.iplmodel.IplMostWicketsData;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -17,15 +18,12 @@ import java.util.stream.StreamSupport;
 public class IPLMatchesAnalyzer {
 
     List<IplMostRunsData> iplRunsList = null;
-    Map<FieldType, Comparator> comparatorMap = null;
-    Comparator<IplMostRunsData> iplMostRunsDataComparator = null;
+    List<IplMostWicketsData> wicketsDataList = null;
+
 
     public IPLMatchesAnalyzer() {
         iplRunsList = new ArrayList<>();
-        comparatorMap = new HashMap<>();
-        comparatorMap.put(FieldType.AVERAGE, (iplMostRunsDataComparator = Comparator.comparing(iplMostRunsData -> iplMostRunsData.average)));
-        comparatorMap.put(FieldType.STRIKERATE, iplMostRunsDataComparator = Comparator.comparing(iplMostRunsData -> iplMostRunsData.strikeRate));
-
+        wicketsDataList =new ArrayList<>();
     }
 
     public int loadIplMatchesData(String ipl_match_runs_data) throws IPLMatchAnalyserException {
@@ -36,7 +34,6 @@ public class IPLMatchesAnalyzer {
             Iterable<IplMostRunsData> csvFileIterable = () -> csvFileIterator;
             StreamSupport.stream(csvFileIterable.spliterator(), false)
                     .forEach(iplMostRunsData -> iplRunsList.add(iplMostRunsData));
-
             int count = iplRunsList.size();
             return count;
         } catch (IOException e) {
@@ -47,7 +44,24 @@ public class IPLMatchesAnalyzer {
             throw new IPLMatchAnalyserException("given delimeter or header", IPLMatchAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER);
         }
     }
+    public int loadIplMatchesData2(String ipl_match_runs_data) throws IPLMatchAnalyserException {
 
+        ICSVBuilder builder = CSVBuilderFactory.createCSVBuilder();
+        try (Reader reader = Files.newBufferedReader(Paths.get(ipl_match_runs_data))) {
+            Iterator<IplMostWicketsData> csvFileIterator = builder.getCSVFileIterator(reader, IplMostRunsData.class);
+            Iterable<IplMostWicketsData> csvFileIterable = () -> csvFileIterator;
+            int count = (int) StreamSupport.stream(csvFileIterable.spliterator(), false)
+                    .count();
+
+            return count;
+        } catch (IOException e) {
+            throw new IPLMatchAnalyserException("Error While Reading file", IPLMatchAnalyserException.ExceptionType.UNABLE_TO_PARSE);
+        } catch (CSVBuilderException e) {
+            throw new IPLMatchAnalyserException("Error While Binding CSV file", IPLMatchAnalyserException.ExceptionType.CSV_BIND_ERROR);
+        } catch (RuntimeException e) {
+            throw new IPLMatchAnalyserException("given delimeter or header", IPLMatchAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER);
+        }
+    }
     public List<IplMostRunsData> getSortedList(Comparator<IplMostRunsData>... comparatorsList) {
         if (comparatorsList.length == 1) {
             Collections.sort(iplRunsList, new GroupBySorter(comparatorsList[0]));
