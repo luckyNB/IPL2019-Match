@@ -4,29 +4,29 @@ import com.opencsv.bean.CsvBindByName;
 
 public class IplMostWicketsData {
     @CsvBindByName(column = "POS")
-    private int position;
+    public int position;
     @CsvBindByName(column = "PLAYER")
-    private String playerName;
+    public String playerName;
     @CsvBindByName(column = "Mat")
-    private int matchesPlayed;
+    public int matchesPlayed;
     @CsvBindByName(column = "Inns")
-    private int innings;
+    public int innings;
     @CsvBindByName(column = "Ov")
-    private double overs;
+    public double overs;
     @CsvBindByName(column = "Runs")
-    private int runs;
+    public int runs;
     @CsvBindByName(column = "Wkts")
-    private int wickets;
+    public int wickets;
     @CsvBindByName(column = "Econ")
-    private double economy;
+    public double economy;
     @CsvBindByName(column = "Avg")
-    private double average;
+    public double average;
     @CsvBindByName(column = "SR")
-    private double strikeRate;
+    public double strikeRate;
     @CsvBindByName(column = "4w")
-    private int fourWickets;
+    public int fourWickets;
     @CsvBindByName(column = "5w")
-    private int fiveWickets;
+    public int fiveWickets;
 
     @Override
     public String toString() {

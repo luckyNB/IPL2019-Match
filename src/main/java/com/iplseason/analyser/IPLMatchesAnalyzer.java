@@ -3,6 +3,7 @@ package com.iplseason.analyser;
 import com.bridgelabz.CSVBuilderException;
 import com.bridgelabz.CSVBuilderFactory;
 import com.bridgelabz.ICSVBuilder;
+import com.google.gson.Gson;
 import com.iplseason.IPLMatchAnalyserException;
 import com.iplseason.iplcomparators.GroupBySorter;
 import com.iplseason.iplmodel.IplMostRunsData;
@@ -23,7 +24,7 @@ public class IPLMatchesAnalyzer {
 
     public IPLMatchesAnalyzer() {
         iplRunsList = new ArrayList<>();
-        wicketsDataList =new ArrayList<>();
+        wicketsDataList = new ArrayList<>();
     }
 
     public int loadIplMatchesData(String ipl_match_runs_data) throws IPLMatchAnalyserException {
@@ -44,6 +45,7 @@ public class IPLMatchesAnalyzer {
             throw new IPLMatchAnalyserException("given delimeter or header", IPLMatchAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER);
         }
     }
+
     public int loadIplMatchesData2(String ipl_match_runs_data) throws IPLMatchAnalyserException {
 
         ICSVBuilder builder = CSVBuilderFactory.createCSVBuilder();
@@ -62,15 +64,27 @@ public class IPLMatchesAnalyzer {
             throw new IPLMatchAnalyserException("given delimeter or header", IPLMatchAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER);
         }
     }
-    public List<IplMostRunsData> getSortedList(Comparator<IplMostRunsData>... comparatorsList) {
+
+    public String getSortedList(Comparator<IplMostRunsData>... comparatorsList) {
         if (comparatorsList.length == 1) {
             Collections.sort(iplRunsList, new GroupBySorter(comparatorsList[0]));
-            return iplRunsList;
+            String sortedStateCensusJson = new Gson().toJson(iplRunsList);
+            return sortedStateCensusJson;
         } else if (comparatorsList.length == 2) {
             Collections.sort(iplRunsList, new GroupBySorter(comparatorsList[0], comparatorsList[1]));
-            return iplRunsList;
+            String sortedStateCensusJson = new Gson().toJson(iplRunsList);
+            return sortedStateCensusJson;
+        } else if (comparatorsList.length == 3) {
+            Collections.sort(iplRunsList, new GroupBySorter(comparatorsList[0], comparatorsList[1], comparatorsList[2]));
+            String sortedStateCensusJson = new Gson().toJson(iplRunsList);
+            return sortedStateCensusJson;
         }
 
+
         return null;
+    }
+
+    public enum AdapterType {
+        RUNADAPTER, WICKETADAPTER
     }
 }
