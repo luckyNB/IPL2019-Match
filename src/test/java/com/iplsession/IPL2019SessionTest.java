@@ -337,7 +337,31 @@ public class IPL2019SessionTest {
             List<IPLMatchesDAO> daoList = iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.WICKETADAPTER, IPL_WICKETS_DATA);
             String sortedList1 = iplMatchesAnalyzer.getSortedList(strikeRateComparator.reversed(), wicketComparator.reversed());
             IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
-            Assert.assertEquals("Liam Livingstone", sortedList[sortedList.length-1].playerName.trim());
+            Assert.assertEquals("Liam Livingstone", sortedList[sortedList.length - 1].playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019FactsSheetMostWickets_WhenSortedByBowlingAverageAndStrikeRate_ShouldBestPlayerInList() {
+        try {
+            List<IPLMatchesDAO> daoList = iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.WICKETADAPTER, IPL_WICKETS_DATA);
+            String sortedList1 = iplMatchesAnalyzer.getSortedList(strikeRateComparator.reversed(), averageComparator.reversed());
+            IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
+            Assert.assertEquals("Krishnappa Gowtham", sortedList[0].playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019FactsSheetMostWickets_WhenSortedByBowlingAverageAndStrikeRate_ShouldWorstPlayerInList() {
+        try {
+            List<IPLMatchesDAO> daoList = iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.WICKETADAPTER, IPL_WICKETS_DATA);
+            String sortedList1 = iplMatchesAnalyzer.getSortedList(strikeRateComparator.reversed(), averageComparator.reversed());
+            IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
+            Assert.assertEquals("Liam Livingstone", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
             e.printStackTrace();
         }
