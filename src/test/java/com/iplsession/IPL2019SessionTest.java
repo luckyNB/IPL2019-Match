@@ -7,6 +7,7 @@ import com.iplseason.analyser.IPLMatchesAnalyzer;
 import com.iplseason.iplcomparators.ComparatorFactory;
 import com.iplseason.iplmodel.IPLMatchesDAO;
 import com.iplseason.iplmodel.IplMostRunsData;
+import com.iplseason.iplmodel.IplMostWicketsData;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -254,6 +255,29 @@ public class IPL2019SessionTest {
         try {
             List<IPLMatchesDAO> daoList = iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.WICKETADAPTER, IPL_WICKETS_DATA);
             Assert.assertEquals(101, daoList.size());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void givenIPL2019FactsSheetMostWickets_WhenSortedByBowlingAvg_ShouldReturnBestPlayerInList() {
+        try {
+            iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.WICKETADAPTER, IPL_WICKETS_DATA);
+            String sortedList1 = iplMatchesAnalyzer.getSortedList(averageComparator);
+            IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
+            Assert.assertEquals("Krishnappa Gowtham", sortedList[0].playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019FactsSheetMostWickets_WhenSortedByBowlingAvg_ShouldWorstPlayerInList() {
+        try {
+            iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.WICKETADAPTER, IPL_WICKETS_DATA);
+            String sortedList1 = iplMatchesAnalyzer.getSortedList(averageComparator);
+            IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
+            Assert.assertEquals("Liam Livingstone", sortedList[sortedList.length-1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
             e.printStackTrace();
         }
