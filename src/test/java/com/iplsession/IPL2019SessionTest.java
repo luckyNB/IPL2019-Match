@@ -83,10 +83,10 @@ public class IPL2019SessionTest {
     @Test
     public void givenIPL2019FactSheetMostRuns_WhenSortedByAverage_Should_ReturnBestPlayerInList() {
         IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
-        Comparator comparatorObject = ComparatorFactory.createComparatorObject(FieldType.AVERAGE);
+
         try {
             iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA);
-            String list = iplMatchesAnalyzer.getSortedList(comparatorObject);
+            String list = iplMatchesAnalyzer.getSortedList(averageComparator.reversed());
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("MS Dhoni", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
@@ -97,10 +97,9 @@ public class IPL2019SessionTest {
     @Test
     public void givenIPL2019FactSheetMostRuns_WhenSortedByAverage_Should_ReturnWorstPlayerInList() {
         IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
-        Comparator comparatorObject = ComparatorFactory.createComparatorObject(FieldType.AVERAGE);
         try {
             iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA);
-            String list = iplMatchesAnalyzer.getSortedList(comparatorObject);
+            String list = iplMatchesAnalyzer.getSortedList(averageComparator.reversed());
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Tim Southee", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
@@ -111,10 +110,9 @@ public class IPL2019SessionTest {
     @Test
     public void givenIPL2019FactSheetMostRuns_WhenSortedByStrikeRate_Should_ReturnBestPlayerInList() {
         IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
-        Comparator comparatorObject = ComparatorFactory.createComparatorObject(FieldType.STRIKERATE);
         try {
             iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA);
-            String list = iplMatchesAnalyzer.getSortedList(comparatorObject);
+            String list = iplMatchesAnalyzer.getSortedList(strikeRateComparator.reversed());
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Ishant Sharma", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
@@ -128,7 +126,7 @@ public class IPL2019SessionTest {
         Comparator comparatorObject = ComparatorFactory.createComparatorObject(FieldType.STRIKERATE);
         try {
             iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA);
-            String list = iplMatchesAnalyzer.getSortedList(comparatorObject);
+            String list = iplMatchesAnalyzer.getSortedList(strikeRateComparator.reversed());
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Bhuvneshwar Kumar", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
@@ -137,12 +135,10 @@ public class IPL2019SessionTest {
     }
 
     @Test
-    public void givenIPL2019FactSheetMostRuns_WhenSortedByMost6sAns4s_ThenShould_ReturnTim_Southee_AsLarstPlayerInList() {
-        IPLMatchesAnalyzer iplMatchesAnalyzer = new IPLMatchesAnalyzer();
-        Comparator sixexAndFoursComparators = ComparatorFactory.createComparatorObject(FieldType.SIXES_AND_FOURS);
+    public void givenIPL2019FactSheetMostRuns_WhenSortedByMost6sAns4s_ThenShould_ReturnWorstPlayerInList() {
         try {
             iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA);
-            String list = iplMatchesAnalyzer.getSortedList(sixexAndFoursComparators);
+            String list = iplMatchesAnalyzer.getSortedList(sixesAndFoursComparator);
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Tim Southee", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
@@ -156,7 +152,7 @@ public class IPL2019SessionTest {
         Comparator sixexAndFoursComparators = ComparatorFactory.createComparatorObject(FieldType.SIXES_AND_FOURS);
         try {
             iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA);
-            String list = iplMatchesAnalyzer.getSortedList(sixexAndFoursComparators);
+            String list = iplMatchesAnalyzer.getSortedList(sixexAndFoursComparators.reversed());
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Andre Russell", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
@@ -166,11 +162,9 @@ public class IPL2019SessionTest {
 
     @Test
     public void givenIPL2019FactSheetMostRuns_WhenSortedByStrikeRateWithSixesAndFours_ThenShould_ReturnBestPlayersList() {
-        Comparator strikeRateComparator = ComparatorFactory.createComparatorObject(FieldType.STRIKERATE);
-        Comparator sixesAndFoursComparator = ComparatorFactory.createComparatorObject(FieldType.SIXES_AND_FOURS);
         try {
             iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA);
-            String list = iplMatchesAnalyzer.getSortedList(sixesAndFoursComparator, strikeRateComparator);
+            String list = iplMatchesAnalyzer.getSortedList(sixesAndFoursComparator.reversed(), strikeRateComparator.reversed());
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Andre Russell", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
@@ -180,11 +174,10 @@ public class IPL2019SessionTest {
 
     @Test
     public void givenIPL2019FactSheetMostRuns_WhenSortedByStrikeRateWithSixesAndFours_ThenShould_ReturnWorstPlayersList() {
-        Comparator strikeRateComparator = ComparatorFactory.createComparatorObject(FieldType.STRIKERATE);
-        Comparator sixesAndFoursComparator = ComparatorFactory.createComparatorObject(FieldType.SIXES_AND_FOURS);
+
         try {
             iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA);
-            String list = iplMatchesAnalyzer.getSortedList(sixesAndFoursComparator, strikeRateComparator);
+            String list = iplMatchesAnalyzer.getSortedList(sixesAndFoursComparator.reversed(), strikeRateComparator.reversed());
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Shakib Al Hasan", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
@@ -195,10 +188,8 @@ public class IPL2019SessionTest {
     @Test
     public void givenIPL2019FactSheetMostRuns_WhenSortedByAverageWithStrikeRates_ThenShould_ReturnBestPlayersList() {
         try {
-            Comparator strikeRateComparator = ComparatorFactory.createComparatorObject(FieldType.STRIKERATE);
-            Comparator averageRateComparator = ComparatorFactory.createComparatorObject(FieldType.AVERAGE);
             iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA);
-            String list = iplMatchesAnalyzer.getSortedList(averageRateComparator, strikeRateComparator);
+            String list = iplMatchesAnalyzer.getSortedList(averageComparator.reversed(), strikeRateComparator.reversed());
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("MS Dhoni", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
@@ -208,12 +199,9 @@ public class IPL2019SessionTest {
 
     @Test
     public void givenIPL2019FactSheetMostRuns_WhenSortedByAverageWithStrikeRates_ThenShould_ReturnWorstPlayersList() {
-        Comparator strikeRateComparator = ComparatorFactory.createComparatorObject(FieldType.STRIKERATE);
-        Comparator averageRateComparator = ComparatorFactory.createComparatorObject(FieldType.AVERAGE);
-
         try {
             iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA);
-            String list = iplMatchesAnalyzer.getSortedList(averageRateComparator, strikeRateComparator);
+            String list = iplMatchesAnalyzer.getSortedList(averageComparator.reversed(), strikeRateComparator.reversed());
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Tim Southee", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
@@ -223,11 +211,9 @@ public class IPL2019SessionTest {
 
     @Test
     public void givenIPL2019FactSheetMostRuns_WhenSortedByMaxRunsWithBestAverage_ThenShould_ReturnBestPlayersList() {
-        Comparator runsComparator = ComparatorFactory.createComparatorObject(FieldType.RUNS);
-        Comparator averageComparator = ComparatorFactory.createComparatorObject(FieldType.AVERAGE);
         try {
             iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA);
-            String list = iplMatchesAnalyzer.getSortedList(runsComparator, averageComparator);
+            String list = iplMatchesAnalyzer.getSortedList(runsComparator.reversed(), averageComparator.reversed());
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("David Warner", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
@@ -237,8 +223,6 @@ public class IPL2019SessionTest {
 
     @Test
     public void givenIPL2019FactSheetMostRuns_WhenSortedByMaxRunsWithBestAverage_ThenShould_ReturnWorstPlayersList() {
-        Comparator runsComparator = ComparatorFactory.createComparatorObject(FieldType.RUNS);
-        Comparator averageComparator = ComparatorFactory.createComparatorObject(FieldType.AVERAGE);
         try {
             iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA);
             String list = iplMatchesAnalyzer.getSortedList(runsComparator.reversed(), averageComparator.reversed());
@@ -308,4 +292,27 @@ public class IPL2019SessionTest {
         }
     }
 
+    @Test
+    public void givenIPL2019FactsSheetMostWickets_WhenSortedByEconomy_ShouldBestPlayerInList() {
+        try {
+            List<IPLMatchesDAO> daoList = iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.WICKETADAPTER, IPL_WICKETS_DATA);
+            String sortedList1 = iplMatchesAnalyzer.getSortedList(economyComparator);
+            IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
+            Assert.assertEquals("Anukul Roy", sortedList[0].playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019FactsSheetMostWickets_WhenSortedByEconomy_ShouldWorstPlayerInList() {
+        try {
+            List<IPLMatchesDAO> daoList = iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.WICKETADAPTER, IPL_WICKETS_DATA);
+            String sortedList1 = iplMatchesAnalyzer.getSortedList(economyComparator);
+            IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
+            Assert.assertEquals("Liam Livingstone", sortedList[sortedList.length - 1].playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
