@@ -29,12 +29,12 @@ public abstract class IPLAdapter {
                 csvFileIterator = csvBuilder.getCSVFileIterator(reader, censusCSVClass);
                 Iterator<E> finalCsvFileIterator = csvFileIterator;
                 Iterable<E> csvIterable = () -> finalCsvFileIterator;
-                if (censusCSVClass.getName().equals("com.iplseason.ipladapters.IPLMostRunsAdapter")) {
+                if (censusCSVClass.getName().equals("com.iplseason.iplmodel.IplMostRunsData")) {
                     StreamSupport.stream
                             (csvIterable.spliterator(), false)
                             .map(IplMostRunsData.class::cast)
                             .forEach(censusCSV -> daoList.add(new IPLMatchesDAO(censusCSV)));
-                } else if (censusCSVClass.getName().equals("com.iplseason.ipladapters.IplMostWicketsData")) {
+                } else if (censusCSVClass.getName().equals("com.iplseason.iplmodel.IplMostWicketsData")) {
                     StreamSupport.stream
                             (csvIterable.spliterator(), false)
                             .map(IplMostWicketsData.class::cast)

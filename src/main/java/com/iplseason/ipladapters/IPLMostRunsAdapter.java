@@ -17,7 +17,7 @@ public class IPLMostRunsAdapter extends IPLAdapter {
 
     @Override
     public List<IPLMatchesDAO> loadingIPLMatchesData(String... csvFilePath) throws IPLMatchAnalyserException {
-        daoList = super.loadingIPLMatchesData(IplMostWicketsData.class, csvFilePath[0]);
+        daoList = super.loadingIPLMatchesData(IplMostRunsData.class, csvFilePath[0]);
         return daoList;
     }
 }

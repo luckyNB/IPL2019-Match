@@ -1,90 +1,52 @@
 package com.iplseason.analyser;
 
-import com.bridgelabz.CSVBuilderException;
-import com.bridgelabz.CSVBuilderFactory;
-import com.bridgelabz.ICSVBuilder;
 import com.google.gson.Gson;
 import com.iplseason.IPLMatchAnalyserException;
+import com.iplseason.ipladapters.IPLAdapter;
+import com.iplseason.ipladapters.IPLAdapterFactory;
 import com.iplseason.iplcomparators.GroupBySorter;
-import com.iplseason.iplmodel.IplMostRunsData;
-import com.iplseason.iplmodel.IplMostWicketsData;
+import com.iplseason.iplmodel.IPLMatchesDAO;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.stream.StreamSupport;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class IPLMatchesAnalyzer {
 
-    List<IplMostRunsData> iplRunsList = null;
-    List<IplMostWicketsData> wicketsDataList = null;
-
+    List<IPLMatchesDAO> iplMatchesList = null;
 
     public IPLMatchesAnalyzer() {
-        iplRunsList = new ArrayList<>();
-        wicketsDataList = new ArrayList<>();
+        iplMatchesList = new ArrayList<>();
+
     }
 
-    public int loadIplMatchesData(String ipl_match_runs_data) throws IPLMatchAnalyserException {
-
-        ICSVBuilder builder = CSVBuilderFactory.createCSVBuilder();
-        try (Reader reader = Files.newBufferedReader(Paths.get(ipl_match_runs_data))) {
-            Iterator<IplMostRunsData> csvFileIterator = builder.getCSVFileIterator(reader, IplMostRunsData.class);
-            Iterable<IplMostRunsData> csvFileIterable = () -> csvFileIterator;
-            StreamSupport.stream(csvFileIterable.spliterator(), false)
-                    .forEach(iplMostRunsData -> iplRunsList.add(iplMostRunsData));
-            int count = iplRunsList.size();
-            return count;
-        } catch (IOException e) {
-            throw new IPLMatchAnalyserException("Error While Reading file", IPLMatchAnalyserException.ExceptionType.UNABLE_TO_PARSE);
-        } catch (CSVBuilderException e) {
-            throw new IPLMatchAnalyserException("Error While Binding CSV file", IPLMatchAnalyserException.ExceptionType.CSV_BIND_ERROR);
-        } catch (RuntimeException e) {
-            throw new IPLMatchAnalyserException("given delimeter or header", IPLMatchAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER);
-        }
+    public List<IPLMatchesDAO> loadIPLMatchecData(PlayerType playerType, String... csvFilePath) throws IPLMatchAnalyserException {
+        IPLAdapter censusAdapter = IPLAdapterFactory.createIPLAdapterObject(playerType);
+        iplMatchesList = censusAdapter.loadingIPLMatchesData(csvFilePath);
+        return iplMatchesList;
     }
 
-    public int loadIplMatchesData2(String ipl_match_runs_data) throws IPLMatchAnalyserException {
-
-        ICSVBuilder builder = CSVBuilderFactory.createCSVBuilder();
-        try (Reader reader = Files.newBufferedReader(Paths.get(ipl_match_runs_data))) {
-            Iterator<IplMostWicketsData> csvFileIterator = builder.getCSVFileIterator(reader, IplMostRunsData.class);
-            Iterable<IplMostWicketsData> csvFileIterable = () -> csvFileIterator;
-            int count = (int) StreamSupport.stream(csvFileIterable.spliterator(), false)
-                    .count();
-
-            return count;
-        } catch (IOException e) {
-            throw new IPLMatchAnalyserException("Error While Reading file", IPLMatchAnalyserException.ExceptionType.UNABLE_TO_PARSE);
-        } catch (CSVBuilderException e) {
-            throw new IPLMatchAnalyserException("Error While Binding CSV file", IPLMatchAnalyserException.ExceptionType.CSV_BIND_ERROR);
-        } catch (RuntimeException e) {
-            throw new IPLMatchAnalyserException("given delimeter or header", IPLMatchAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER);
-        }
-    }
-
-    public String getSortedList(Comparator<IplMostRunsData>... comparatorsList) {
+    public String getSortedList(Comparator<IPLMatchesDAO>... comparatorsList) {
         if (comparatorsList.length == 1) {
-            Collections.sort(iplRunsList, new GroupBySorter(comparatorsList[0]));
-            String sortedStateCensusJson = new Gson().toJson(iplRunsList);
+            Collections.sort(iplMatchesList, new GroupBySorter(comparatorsList[0]));
+            String sortedStateCensusJson = new Gson().toJson(iplMatchesList);
             return sortedStateCensusJson;
         } else if (comparatorsList.length == 2) {
-            Collections.sort(iplRunsList, new GroupBySorter(comparatorsList[0], comparatorsList[1]));
-            String sortedStateCensusJson = new Gson().toJson(iplRunsList);
+            Collections.sort(iplMatchesList, new GroupBySorter(comparatorsList[0], comparatorsList[1]));
+            String sortedStateCensusJson = new Gson().toJson(iplMatchesList);
             return sortedStateCensusJson;
         } else if (comparatorsList.length == 3) {
-            Collections.sort(iplRunsList, new GroupBySorter(comparatorsList[0], comparatorsList[1], comparatorsList[2]));
-            String sortedStateCensusJson = new Gson().toJson(iplRunsList);
+            Collections.sort(iplMatchesList, new GroupBySorter(comparatorsList[0], comparatorsList[1], comparatorsList[2]));
+            String sortedStateCensusJson = new Gson().toJson(iplMatchesList);
             return sortedStateCensusJson;
         }
-
-
         return null;
     }
 
-    public enum AdapterType {
+    public enum PlayerType {
         RUNADAPTER, WICKETADAPTER
     }
+
+
 }

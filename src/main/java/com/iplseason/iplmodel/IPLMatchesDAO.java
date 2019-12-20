@@ -33,4 +33,44 @@ public class IPLMatchesDAO {
         strikeRate = wicketsData.strikeRate;
         runs = wicketsData.runs;
     }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public int getRuns() {
+        return runs;
+    }
+
+    public double getAverage() {
+        return average;
+    }
+
+    public int getFours() {
+        return fours;
+    }
+
+    public int getSixes() {
+        return sixes;
+    }
+
+    public double getStrikeRate() {
+        return strikeRate;
+    }
+
+    public int getWickets() {
+        return wickets;
+    }
+
+    public double getEconomy() {
+        return economy;
+    }
+
+    public int getFourWickets() {
+        return fourWickets;
+    }
+
+    public int getFiveWickets() {
+        return fiveWickets;
+    }
 }
