@@ -36,10 +36,6 @@ public class IPLMatchesAnalyzer {
             Collections.sort(iplMatchesList, new GroupBySorter(comparatorsList[0], comparatorsList[1]));
             String sortedStateCensusJson = new Gson().toJson(iplMatchesList);
             return sortedStateCensusJson;
-        } else if (comparatorsList.length == 3) {
-            Collections.sort(iplMatchesList, new GroupBySorter(comparatorsList[0], comparatorsList[1], comparatorsList[2]));
-            String sortedStateCensusJson = new Gson().toJson(iplMatchesList);
-            return sortedStateCensusJson;
         }
         return null;
     }

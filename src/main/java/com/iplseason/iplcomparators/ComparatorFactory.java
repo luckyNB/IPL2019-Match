@@ -15,6 +15,10 @@ public class ComparatorFactory {
             return (T) new FoursAndSixesComparator();
         } else if (fieldType.equals(FieldType.RUNS)) {
             return (T) new RunsComparator();
+        } else if (fieldType.equals(FieldType.ECONOMY)) {
+            return (T) new EconomyComparator();
+        } else if (fieldType.equals(FieldType.WICKETS)) {
+            return (T) new FourAndFiveWicketComparator();
         }
         return null;
     }
