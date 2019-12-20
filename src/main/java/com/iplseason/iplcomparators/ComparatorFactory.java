@@ -17,8 +17,10 @@ public class ComparatorFactory {
             return (T) new RunsComparator();
         } else if (fieldType.equals(FieldType.ECONOMY)) {
             return (T) new EconomyComparator();
-        } else if (fieldType.equals(FieldType.WICKETS)) {
+        } else if (fieldType.equals(FieldType.W5_AND_W4_WICKETS)) {
             return (T) new FourAndFiveWicketComparator();
+        } else if (fieldType.equals(FieldType.WICKETS)) {
+            return (T) new WicketComparator();
         }
         return null;
     }
