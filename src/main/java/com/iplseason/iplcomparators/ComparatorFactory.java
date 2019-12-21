@@ -21,7 +21,10 @@ public class ComparatorFactory {
             return (T) new FourAndFiveWicketComparator();
         } else if (fieldType.equals(FieldType.WICKETS)) {
             return (T) new WicketComparator();
+        } else if (fieldType.equals(FieldType.BOWLING_AVERAGE)) {
+            return (T) new BowlingAverageComparator();
         }
         return null;
     }
+
 }

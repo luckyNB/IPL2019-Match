@@ -7,12 +7,11 @@ public class IPLMatchesDAO {
     public int fours;
     public int sixes;
     public double strikeRate;
-
     public int wickets;
     public double economy;
     public int fourWickets;
     public int fiveWickets;
-
+    public double bowlingAverage;
 
     public IPLMatchesDAO(IplMostRunsData mostRunsData) {
         playerName = mostRunsData.playerName;
@@ -34,6 +33,21 @@ public class IPLMatchesDAO {
         runs = wicketsData.runs;
     }
 
+    public IPLMatchesDAO() {
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public void setAverage(double average) {
+        this.average = average;
+    }
+
+    public void setEconomy(double economy) {
+        this.economy = economy;
+    }
+
     public String getPlayerName() {
         return playerName;
     }
@@ -46,31 +60,28 @@ public class IPLMatchesDAO {
         return average;
     }
 
-    public int getFours() {
-        return fours;
+    public void setBowlingAverage(double bowlingAverage) {
+        this.bowlingAverage = bowlingAverage;
     }
 
-    public int getSixes() {
-        return sixes;
+    public void setWickets(int wickets) {
+        this.wickets = wickets;
     }
 
-    public double getStrikeRate() {
-        return strikeRate;
-    }
-
-    public int getWickets() {
-        return wickets;
-    }
-
-    public double getEconomy() {
-        return economy;
-    }
-
-    public int getFourWickets() {
-        return fourWickets;
-    }
-
-    public int getFiveWickets() {
-        return fiveWickets;
+    @Override
+    public String toString() {
+        return "IPLMatchesDAO{" +
+                "playerName='" + playerName + '\'' +
+                ", runs=" + runs +
+                ", average=" + average +
+                ", fours=" + fours +
+                ", sixes=" + sixes +
+                ", strikeRate=" + strikeRate +
+                ", wickets=" + wickets +
+                ", economy=" + economy +
+                ", fourWickets=" + fourWickets +
+                ", fiveWickets=" + fiveWickets +
+                ", bowlingAverage=" + bowlingAverage +
+                '}';
     }
 }
