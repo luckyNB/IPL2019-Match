@@ -45,7 +45,7 @@ public class IPL2019SessionTest {
             List<IPLMatchesDAO> daoList = iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA);
             Assert.assertEquals(101, daoList.size());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -94,7 +94,7 @@ public class IPL2019SessionTest {
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("MS Dhoni", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -107,7 +107,7 @@ public class IPL2019SessionTest {
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Tim Southee", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -120,7 +120,7 @@ public class IPL2019SessionTest {
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Ishant Sharma", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -134,7 +134,6 @@ public class IPL2019SessionTest {
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Bhuvneshwar Kumar", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
         }
     }
 
@@ -146,7 +145,7 @@ public class IPL2019SessionTest {
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Tim Southee", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -160,7 +159,7 @@ public class IPL2019SessionTest {
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Andre Russell", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -172,7 +171,7 @@ public class IPL2019SessionTest {
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Andre Russell", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -185,7 +184,7 @@ public class IPL2019SessionTest {
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Shakib Al Hasan", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -197,7 +196,7 @@ public class IPL2019SessionTest {
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("MS Dhoni", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -209,7 +208,7 @@ public class IPL2019SessionTest {
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Tim Southee", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -221,7 +220,7 @@ public class IPL2019SessionTest {
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("David Warner", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -233,7 +232,7 @@ public class IPL2019SessionTest {
             IplMostRunsData[] sortedList = new Gson().fromJson(list, IplMostRunsData[].class);
             Assert.assertEquals("Tim Southee", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
 
     }
@@ -244,7 +243,7 @@ public class IPL2019SessionTest {
             List<IPLMatchesDAO> daoList = iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.WICKETADAPTER, IPL_WICKETS_DATA);
             Assert.assertEquals(99, daoList.size());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -256,7 +255,7 @@ public class IPL2019SessionTest {
             IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
             Assert.assertEquals("Krishnappa Gowtham", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -268,7 +267,7 @@ public class IPL2019SessionTest {
             IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
             Assert.assertEquals("Liam Livingstone", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -280,7 +279,7 @@ public class IPL2019SessionTest {
             IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
             Assert.assertEquals("Krishnappa Gowtham", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -292,7 +291,7 @@ public class IPL2019SessionTest {
             IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
             Assert.assertEquals("Liam Livingstone", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -304,7 +303,7 @@ public class IPL2019SessionTest {
             IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
             Assert.assertEquals("Anukul Roy", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -316,7 +315,6 @@ public class IPL2019SessionTest {
             IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
             Assert.assertEquals("Liam Livingstone", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
         }
     }
 
@@ -328,7 +326,6 @@ public class IPL2019SessionTest {
             IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
             Assert.assertEquals("Krishnappa Gowtham", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
         }
     }
 
@@ -340,7 +337,6 @@ public class IPL2019SessionTest {
             IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
             Assert.assertEquals("Liam Livingstone", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
         }
     }
 
@@ -352,7 +348,6 @@ public class IPL2019SessionTest {
             IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
             Assert.assertEquals("Krishnappa Gowtham", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
         }
     }
 
@@ -364,7 +359,6 @@ public class IPL2019SessionTest {
             IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
             Assert.assertEquals("Liam Livingstone", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
         }
     }
 
@@ -376,7 +370,6 @@ public class IPL2019SessionTest {
             IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
             Assert.assertEquals("Imran Tahir", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
         }
     }
 
@@ -388,7 +381,6 @@ public class IPL2019SessionTest {
             IplMostWicketsData[] sortedList = new Gson().fromJson(sortedList1, IplMostWicketsData[].class);
             Assert.assertEquals("Liam Livingstone", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
         }
     }
 
@@ -401,7 +393,6 @@ public class IPL2019SessionTest {
             IPLMatchesDAO[] sortedList = new Gson().fromJson(resultList, IPLMatchesDAO[].class);
             Assert.assertEquals("Krishnappa Gowtham", sortedList[0].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
         }
     }
 
@@ -414,7 +405,6 @@ public class IPL2019SessionTest {
             IPLMatchesDAO[] sortedList = new Gson().fromJson(resultList, IPLMatchesDAO[].class);
             Assert.assertEquals("Harpreet Brar", sortedList[sortedList.length - 1].playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
         }
     }
 
@@ -428,7 +418,6 @@ public class IPL2019SessionTest {
             IPLMatchesDAO allRounerPlayer = iplMatchesAnalyzer.compareTwoListsAndGetAllRounder(sortedRunsListWithComparator, sortedWicketListWithComparator);
             Assert.assertEquals("Andre Russell", allRounerPlayer.playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
         }
     }
 
@@ -442,7 +431,6 @@ public class IPL2019SessionTest {
             IPLMatchesDAO allRounerPlayer = iplMatchesAnalyzer.compareTwoListsAndGetAllRounder(sortedRunsListWithComparator, sortedWicketListWithComparator);
             Assert.assertEquals("Shakib Al Hasan", allRounerPlayer.playerName.trim());
         } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
         }
     }
 }
