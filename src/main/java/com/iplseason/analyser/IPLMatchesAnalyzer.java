@@ -17,7 +17,9 @@ public class IPLMatchesAnalyzer {
 
     List<IPLMatchesDAO> iplMatchesList = null;
     List<IPLMatchesDAO> allRounderList = null;
-
+    public enum PlayerType {
+        RUNADAPTER, WICKETADAPTER
+    }
     public IPLMatchesAnalyzer() {
         iplMatchesList = new ArrayList<>();
         allRounderList = new ArrayList<>();
@@ -49,28 +51,20 @@ public class IPLMatchesAnalyzer {
     }
 
     public String mergingList(List<IPLMatchesDAO> runsList, List<IPLMatchesDAO> wicketList) {
-        runsList.addAll(wicketList);
         for (IPLMatchesDAO playerWicketList : wicketList) {
             for (IPLMatchesDAO playerRunList : runsList) {
                 if (playerWicketList.getPlayerName().trim().equalsIgnoreCase(playerRunList.getPlayerName().trim())) {
                     IPLMatchesDAO iplMatchesDAO = new IPLMatchesDAO();
                     iplMatchesDAO.setPlayerName(playerWicketList.playerName);
-                    iplMatchesDAO.setBowlingAverage(playerWicketList.bowlingAverage);
+                    iplMatchesDAO.setBowlingAverage(playerWicketList.average);
                     iplMatchesDAO.setAverage(playerRunList.average);
                     allRounderList.add(iplMatchesDAO);
                 }
             }
         }
-
         List<IPLMatchesDAO> sortedMergedList = this.getSortedMergedList(allRounderList);
         sortedMergedList.forEach(System.out::println);
         String sortedStateCensusJson = new Gson().toJson(sortedMergedList);
         return sortedStateCensusJson;
     }
-
-    public enum PlayerType {
-        RUNADAPTER, WICKETADAPTER
-    }
-
-
 }
