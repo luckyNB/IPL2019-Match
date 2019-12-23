@@ -4,7 +4,6 @@ import com.iplseason.IPLMatchAnalyserException;
 import com.iplseason.analyser.IPLMatchesAnalyzer;
 import com.iplseason.ipladapters.IPLAdapter;
 import com.iplseason.ipladapters.IPLAdapterFactory;
-import com.iplseason.ipladapters.IPLMostRunsAdapter;
 import com.iplseason.iplmodel.IPLMatchesDAO;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,6 +13,7 @@ import java.util.List;
 public class IPLMostRunsAdapterTest {
 
     IPLAdapter iplMatchesAnalyzer = IPLAdapterFactory.createIPLAdapterObject(IPLMatchesAnalyzer.PlayerType.RUNADAPTER);
+    String differntType = "./src/test/resources/IPLDifferentType.json";
     private String IPL_WICKETS_DATA = "./src/test/resources/IPL2019FactsheetMostWkts.csv";
     private String IPL_MATCH_RUNS_DATA = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
     private String WRONG_IPL_MATCH_DATA = "./src/test/resources/WrongIPL2019FactsheetMostRuns.csv";
@@ -34,7 +34,7 @@ public class IPLMostRunsAdapterTest {
             List<IPLMatchesDAO> daoList = iplMatchesAnalyzer.loadingIPLMatchesData(WRONG_IPL_MATCH_DATA);
             Assert.assertEquals(100, daoList.size());
         } catch (IPLMatchAnalyserException e) {
-            Assert.assertEquals(IPLMatchAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER,e.type);
+            Assert.assertEquals(IPLMatchAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER, e.type);
 
         }
     }
@@ -42,11 +42,20 @@ public class IPLMostRunsAdapterTest {
     @Test
     public void givenIPLMostRunsData_WhenFileHasWrongHeader_ShouldReturn_IPLMatchesAnalyserException() {
         try {
-            List<IPLMatchesDAO> daoList = iplMatchesAnalyzer.loadingIPLMatchesData( WRONG_IPL_MATCH_DATA);
+            List<IPLMatchesDAO> daoList = iplMatchesAnalyzer.loadingIPLMatchesData(WRONG_IPL_MATCH_DATA);
             Assert.assertEquals(100, daoList.size());
         } catch (IPLMatchAnalyserException e) {
-            Assert.assertEquals(IPLMatchAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER,e.type);
+            Assert.assertEquals(IPLMatchAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER, e.type);
         }
     }
 
+    @Test
+    public void givenIPLMostRunsData_WhenFileHasDifferentType_ShouldReturn_IPLMatchesAnalyserException() {
+        try {
+            List<IPLMatchesDAO> daoList = iplMatchesAnalyzer.loadingIPLMatchesData(differntType);
+            Assert.assertEquals(100, daoList.size());
+        } catch (IPLMatchAnalyserException e) {
+            Assert.assertEquals(IPLMatchAnalyserException.ExceptionType.WRONG_DELIMETER_OR_HEADER, e.type);
+        }
+    }
 }
