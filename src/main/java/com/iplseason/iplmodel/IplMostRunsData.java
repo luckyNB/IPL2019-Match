@@ -24,18 +24,4 @@ public class IplMostRunsData {
 
     public IplMostRunsData() {
     }
-
-    @Override
-    public String toString() {
-        return "IplMostRunsData{" +
-                "position=" + position +
-                ", playerName='" + playerName + '\'' +
-                ", matchesPlayed=" + matchesPlayed +
-                ", innings=" + innings +
-                ", runs=" + runs +
-                ", average=" + average +
-                ", fours=" + fours +
-                ", sixes=" + sixes +
-                '}';
-    }
 }

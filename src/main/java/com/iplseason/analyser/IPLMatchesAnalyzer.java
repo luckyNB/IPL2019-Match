@@ -17,12 +17,26 @@ public class IPLMatchesAnalyzer {
 
     List<IPLMatchesDAO> iplMatchesList = null;
     List<IPLMatchesDAO> allRounderList = null;
-    public enum PlayerType {
-        RUNADAPTER, WICKETADAPTER
-    }
+
     public IPLMatchesAnalyzer() {
         iplMatchesList = new ArrayList<>();
         allRounderList = new ArrayList<>();
+    }
+
+    public List<IPLMatchesDAO> getSortedListWithComparator(List<IPLMatchesDAO> iplPlayersList, Comparator comparator) {
+        Collections.sort(iplPlayersList, comparator.reversed());
+        return iplPlayersList;
+    }
+
+    public IPLMatchesDAO compareTwoListsAndGetAllRounder(List<IPLMatchesDAO> sortedRunsList, List<IPLMatchesDAO> sortedWicketList) {
+        for (IPLMatchesDAO sortedBatsman : sortedRunsList) {
+            for (IPLMatchesDAO sortedBowler : sortedWicketList) {
+                if (sortedBatsman.playerName.trim().equalsIgnoreCase(sortedBowler.playerName.trim())) {
+                    return sortedBatsman;
+                }
+            }
+        }
+        return null;
     }
 
     public List<IPLMatchesDAO> loadIPLMatchecData(PlayerType playerType, String... csvFilePath) throws IPLMatchAnalyserException {
@@ -66,5 +80,9 @@ public class IPLMatchesAnalyzer {
         sortedMergedList.forEach(System.out::println);
         String sortedStateCensusJson = new Gson().toJson(sortedMergedList);
         return sortedStateCensusJson;
+    }
+
+    public enum PlayerType {
+        RUNADAPTER, WICKETADAPTER
     }
 }

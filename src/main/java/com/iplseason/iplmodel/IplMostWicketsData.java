@@ -27,22 +27,4 @@ public class IplMostWicketsData {
     public int fourWickets;
     @CsvBindByName(column = "5w")
     public int fiveWickets;
-
-    @Override
-    public String toString() {
-        return "IplMostWicketsData{" +
-                "position=" + position +
-                ", playerName='" + playerName + '\'' +
-                ", matchesPlayed=" + matchesPlayed +
-                ", innings=" + innings +
-                ", overs=" + overs +
-                ", runs=" + runs +
-                ", wickets=" + wickets +
-                ", economy=" + economy +
-                ", average=" + average +
-                ", strikeRate=" + strikeRate +
-                ", fourWickets=" + fourWickets +
-                ", fiveWickets=" + fiveWickets +
-                '}';
-    }
 }

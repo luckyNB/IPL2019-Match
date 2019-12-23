@@ -412,7 +412,35 @@ public class IPL2019SessionTest {
             List<IPLMatchesDAO> wicketList = iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.WICKETADAPTER, IPL_WICKETS_DATA);
             String resultList = iplMatchesAnalyzer.mergingList(runsList, wicketList);
             IPLMatchesDAO[] sortedList = new Gson().fromJson(resultList, IPLMatchesDAO[].class);
-            Assert.assertEquals("Harpreet Brar", sortedList[sortedList.length-1].playerName.trim());
+            Assert.assertEquals("Harpreet Brar", sortedList[sortedList.length - 1].playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019FactsSheetMostWickets_WhenSortedByMaxRunsAndMaxWickets_ShouldBestPlayerInList() {
+        try {
+            List<IPLMatchesDAO> mostRunsList = iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA);
+            List<IPLMatchesDAO> mostWicketList = iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.WICKETADAPTER, IPL_WICKETS_DATA);
+            List<IPLMatchesDAO> sortedRunsListWithComparator = iplMatchesAnalyzer.getSortedListWithComparator(mostRunsList, runsComparator);
+            List<IPLMatchesDAO> sortedWicketListWithComparator = iplMatchesAnalyzer.getSortedListWithComparator(mostWicketList, wicketComparator);
+            IPLMatchesDAO allRounerPlayer = iplMatchesAnalyzer.compareTwoListsAndGetAllRounder(sortedRunsListWithComparator, sortedWicketListWithComparator);
+            Assert.assertEquals("Andre Russell", allRounerPlayer.playerName.trim());
+        } catch (IPLMatchAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIPL2019FactsSheetMostWickets_WhenSortedByMaxRunsAndMaxWickets_ShouldWorstPlayerInList() {
+        try {
+            List<IPLMatchesDAO> mostRunsList = iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA);
+            List<IPLMatchesDAO> mostWicketList = iplMatchesAnalyzer.loadIPLMatchecData(IPLMatchesAnalyzer.PlayerType.WICKETADAPTER, IPL_WICKETS_DATA);
+            List<IPLMatchesDAO> sortedRunsListWithComparator = iplMatchesAnalyzer.getSortedListWithComparator(mostRunsList, runsComparator.reversed());
+            List<IPLMatchesDAO> sortedWicketListWithComparator = iplMatchesAnalyzer.getSortedListWithComparator(mostWicketList, wicketComparator.reversed());
+            IPLMatchesDAO allRounerPlayer = iplMatchesAnalyzer.compareTwoListsAndGetAllRounder(sortedRunsListWithComparator, sortedWicketListWithComparator);
+            Assert.assertEquals("Shakib Al Hasan", allRounerPlayer.playerName.trim());
         } catch (IPLMatchAnalyserException e) {
             e.printStackTrace();
         }

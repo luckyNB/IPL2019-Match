@@ -36,36 +36,24 @@ public class IPLMatchesDAO {
     public IPLMatchesDAO() {
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    public void setAverage(double average) {
-        this.average = average;
-    }
-
-    public void setEconomy(double economy) {
-        this.economy = economy;
-    }
-
     public String getPlayerName() {
         return playerName;
     }
 
-    public int getRuns() {
-        return runs;
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
     }
 
     public double getAverage() {
         return average;
     }
 
-    public void setBowlingAverage(double bowlingAverage) {
-        this.bowlingAverage = bowlingAverage;
+    public void setAverage(double average) {
+        this.average = average;
     }
 
-    public void setWickets(int wickets) {
-        this.wickets = wickets;
+    public void setBowlingAverage(double bowlingAverage) {
+        this.bowlingAverage = bowlingAverage;
     }
 
     @Override
