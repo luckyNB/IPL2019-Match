@@ -1,7 +1,6 @@
 package com.iplsession;
 
 import com.iplseason.IPLMatchAnalyserException;
-import com.iplseason.analyser.IPLMatchesAnalyzer;
 import com.iplseason.ipladapters.IPLAdapter;
 import com.iplseason.ipladapters.IPLMostRunsAdapter;
 import com.iplseason.iplmodel.IPLMatchesDAO;
@@ -25,8 +24,6 @@ public class MockitoIPLMostRunsTest {
     public MockitoRule mockitoRule = MockitoJUnit.rule();
     List<IPLMatchesDAO> dataList = null;
     private String IPL_MATCH_RUNS_DATA = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
-    private String WRONG_IPL_MATCH_DATA = "./src/test/resources/WrongIPL2019FactsheetMostRuns.csv";
-    private String EmptyIPL_MATCH_DATA = "./src/test/resources/EmptyFileIPL2019FactsheetMostRuns.csv";
 
     @Before
     public void setUp() {
@@ -39,30 +36,16 @@ public class MockitoIPLMostRunsTest {
     }
 
     @Test
-    public void givenIPLMatchesRunsData_WhenCorrect_ShouldReturnList() {
-        try {
-            IPLMatchesAnalyzer iplMatchesAnalyzer = mock(IPLMatchesAnalyzer.class);
-            setUp();
-            when(iplMatchesAnalyzer.loadIPLMatchesData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA)).thenReturn(dataList);
-            List<IPLMatchesDAO> daoList = iplMatchesAnalyzer.loadIPLMatchesData(IPLMatchesAnalyzer.PlayerType.RUNADAPTER, IPL_MATCH_RUNS_DATA);
-            daoList.forEach(System.out::println);
-            Assert.assertEquals(5, daoList.size());
-        } catch (IPLMatchAnalyserException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
     public void givenIPLRunsData_WhenCorrect_ShouldReturnList() {
-
         IPLAdapter iplMostRunsAdapter = mock(IPLMostRunsAdapter.class);
         try {
+
             when(iplMostRunsAdapter.loadingIPLMatchesData(IPL_MATCH_RUNS_DATA)).thenReturn(dataList);
             List<IPLMatchesDAO> matchesDAOList = iplMostRunsAdapter.loadingIPLMatchesData(IPL_MATCH_RUNS_DATA);
             matchesDAOList.forEach(System.out::println);
+            Assert.assertEquals(5, matchesDAOList.size());
         } catch (IPLMatchAnalyserException e) {
             e.printStackTrace();
         }
-
     }
 }
