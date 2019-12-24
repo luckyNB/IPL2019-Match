@@ -39,7 +39,6 @@ public class MockitoIPLMostRunsTest {
     public void givenIPLRunsData_WhenCorrect_ShouldReturnList() {
         IPLAdapter iplMostRunsAdapter = mock(IPLMostRunsAdapter.class);
         try {
-
             when(iplMostRunsAdapter.loadingIPLMatchesData(IPL_MATCH_RUNS_DATA)).thenReturn(dataList);
             List<IPLMatchesDAO> matchesDAOList = iplMostRunsAdapter.loadingIPLMatchesData(IPL_MATCH_RUNS_DATA);
             matchesDAOList.forEach(System.out::println);

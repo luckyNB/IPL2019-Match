@@ -24,4 +24,10 @@ public class IplMostRunsData {
 
     public IplMostRunsData() {
     }
+
+    public IplMostRunsData(String playerName, int matchesPlayed, int innings) {
+        this.playerName = playerName;
+        this.matchesPlayed = matchesPlayed;
+        this.innings = innings;
+    }
 }

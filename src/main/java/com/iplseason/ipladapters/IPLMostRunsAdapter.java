@@ -11,7 +11,7 @@ import java.util.List;
 public class IPLMostRunsAdapter extends IPLAdapter {
     List<IPLMatchesDAO> daoList;
 
-    IPLMostRunsAdapter() {
+    public IPLMostRunsAdapter() {
         daoList = new ArrayList<>();
     }
 

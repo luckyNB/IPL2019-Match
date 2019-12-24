@@ -13,6 +13,15 @@ public class IPLMatchesDAO {
     public int fiveWickets;
     public double bowlingAverage;
 
+    public IPLMatchesDAO(String playerName, int runs, double average, int fours, int sixes, double strikeRate) {
+        this.playerName = playerName;
+        this.runs = runs;
+        this.average = average;
+        this.fours = fours;
+        this.sixes = sixes;
+        this.strikeRate = strikeRate;
+    }
+
     public IPLMatchesDAO(IplMostRunsData mostRunsData) {
         playerName = mostRunsData.playerName;
         runs = mostRunsData.runs;
@@ -34,6 +43,14 @@ public class IPLMatchesDAO {
     }
 
     public IPLMatchesDAO() {
+    }
+
+    public IPLMatchesDAO(String playerName, int wickets, int fourWickets, int fiveWickets, double bowlingAverage) {
+        this.playerName = playerName;
+        this.wickets = wickets;
+        this.fourWickets = fourWickets;
+        this.fiveWickets = fiveWickets;
+        this.bowlingAverage = bowlingAverage;
     }
 
     public String getPlayerName() {

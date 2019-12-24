@@ -17,6 +17,11 @@ public class IPLMatchesAnalyzer {
 
     List<IPLMatchesDAO> iplMatchesList = null;
     List<IPLMatchesDAO> allRounderList = null;
+    IPLAdapter iplAdapter = null;
+
+    public IPLMatchesAnalyzer(IPLAdapter iplAdapter) {
+        this.iplAdapter = iplAdapter;
+    }
 
     public IPLMatchesAnalyzer() {
         iplMatchesList = new ArrayList<>();
@@ -39,9 +44,8 @@ public class IPLMatchesAnalyzer {
         return null;
     }
 
-    public List<IPLMatchesDAO> loadIPLMatchecData(PlayerType playerType, String... csvFilePath) throws IPLMatchAnalyserException {
-        IPLAdapter censusAdapter = IPLAdapterFactory.createIPLAdapterObject(playerType);
-        iplMatchesList = censusAdapter.loadingIPLMatchesData(csvFilePath);
+    public List<IPLMatchesDAO> loadIPLMatchesData(String... csvFilePath) throws IPLMatchAnalyserException {
+        iplMatchesList = this.iplAdapter.loadingIPLMatchesData(csvFilePath);
         return iplMatchesList;
     }
 

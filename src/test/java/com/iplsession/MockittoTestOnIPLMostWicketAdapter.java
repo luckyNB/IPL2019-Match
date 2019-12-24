@@ -1,8 +1,9 @@
 package com.iplsession;
 
 import com.iplseason.IPLMatchAnalyserException;
+import com.iplseason.analyser.IPLMatchesAnalyzer;
 import com.iplseason.ipladapters.IPLAdapter;
-import com.iplseason.ipladapters.IPLMostWicketsAdapter;
+import com.iplseason.ipladapters.IPLAdapterFactory;
 import com.iplseason.iplmodel.IPLMatchesDAO;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,12 +16,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class MockittoTestOnIPLMostWicketAdapter {
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
+
     List<IPLMatchesDAO> dataList = null;
     String filePath = "/home/admin1/IPL2019-Match-Analyser/src/test/resources/IPL2019FactsheetMostWkts.csv";
 
@@ -37,12 +38,12 @@ public class MockittoTestOnIPLMostWicketAdapter {
 
     @Test
     public void givenIPLMostWicketList_WhenCorrect_ShouldReturnList() {
-        IPLAdapter iplAdapter = mock(IPLMostWicketsAdapter.class);
+        IPLAdapter iplAdapter = IPLAdapterFactory.createIPLAdapterObject(IPLMatchesAnalyzer.PlayerType.WICKETADAPTER);
         try {
-            setUp();
             when(iplAdapter.loadingIPLMatchesData()).thenReturn(dataList);
-            List<IPLMatchesDAO> daoList = iplAdapter.loadingIPLMatchesData(filePath);
-            daoList.forEach(System.out::println);
+            IPLMatchesAnalyzer analyzer = new IPLMatchesAnalyzer(iplAdapter);
+            List<IPLMatchesDAO> daoList = analyzer.loadIPLMatchesData(filePath);
+            //   daoList.forEach(System.out::println);
             Assert.assertEquals(5, daoList.size());
         } catch (IPLMatchAnalyserException e) {
             e.printStackTrace();
