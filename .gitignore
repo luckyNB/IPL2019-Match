@@ -24,7 +24,7 @@ hs_err_pid*
 
 #IPL 2018 Match Analyser project files Not To be uploaded on remote location
 
-*.gradle
+
 gradlew
 gradlew.bat
 settings.gradle

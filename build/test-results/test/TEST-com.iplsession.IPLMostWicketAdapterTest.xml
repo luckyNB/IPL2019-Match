@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.iplsession.IPLMostWicketAdapterTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-24T07:33:39" hostname="admin1-desktop" time="0.284">
+  <properties/>
+  <testcase name="givenIPLMatchesData_WhenMocked_ShouldReturnDummyList" classname="com.iplsession.IPLMostWicketAdapterTest" time="0.284"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
